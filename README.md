@@ -1,42 +1,75 @@
-# EC-Lab
+# Nuxt 3 Minimal Starter
 
-Everyone Cooperate Labo
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-業務アプリっぽいものを作りながら勉強したいと思っています。
+## Setup
 
-分からないところは皆さまに助言してもらいながら作っていきたいと思います。
+Make sure to install the dependencies:
 
-アドバイスよろしくお願いします！
+```bash
+# npm
+npm install
 
+# pnpm
+pnpm install
 
-# やってみたいこと／試してみたいこと
-- 勉強がてらに業務アプリっぽいのを作りたい。
-- 仕事でなかなか最初からプロジェクトに参画することがないのでそれを味わいたい。
-- プロジェクトを進めるのに最小限の労力でやりたい。
-- 今まで古いやり方でしかしたことないので、できる限りモダンなやり方でやってみたい。
-- ウォーターフォールとかDDDとかアジャイルとかのやり方はこだわらない。いいとこだけ取り入れる。
-- できるだけ仕様はシンプルにしたい。本当にそれ必要？そこまでする？を考える。
+# yarn
+yarn install
 
-# 技術スタック
-- フロントエンド：react、Next.js、Vue、Nuxt.js、Remixのどれか
-- バックエンド：Laravel
-- DB：MySQL
-- ホスト（local）：Xampp
-- ホスト（公開）：フロントエンドはVercel、バックエンドはレンタルサーバー
+# bun
+bun install
+```
 
-# 思い
-- フロントエンドはいずれも仕事での経験はなく、独学レベル。<br>
-そのすべてで簡単なアプリは作成経験済み。
-- Laravelも仕事上の経験はない。独学で触ったくらい。MySQLも同様。
-- 自分なりの開発方法を確立したい。
-- reactのRSCには驚きました。以前作ったアプリをRSCにすると、断然表示が速かった。<br>
-しかし、新技術や新機能が今後控えていることや、ベストプラクティスに近いやり方が変わっていく可能性が高いため、<br>
-今回、react、Next.js、Remixは見送ります。<br>
-VueかNuxt.jsで作っていって、時機が来たらNext.jsかRemixで作り直そうと思っています。並行して誰かがそれで作ってくれたら最高ですが。
+## Development Server
 
-# やりたいけどやらないこと
-- レスポンシブ対応
-- スマホアプリ対応
-- ダークモード対応
-- vitestなどでのテスト
-- storybook
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
