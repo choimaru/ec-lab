@@ -5,7 +5,12 @@ type Props = {
   disabled?: boolean;
 };
 
+type Emit = {
+  'on-blur': [];
+};
+
 const props = withDefaults(defineProps<Props>(), { type: 'text' });
+const emit = defineEmits<Emit>();
 const model = defineModel();
 </script>
 
@@ -15,6 +20,7 @@ const model = defineModel();
     :class="[{ g_disabled: props.disabled }, props.size]"
     v-model="model"
     :disabled="props.disabled"
+    @blur="emit('on-blur')"
   />
 </template>
 
