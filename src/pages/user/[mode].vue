@@ -87,8 +87,10 @@ const searchZip = async () => {
     return;
   }
 
-  formUser.prefecture = zipInfo.prefecture;
-  formUser.address = zipInfo.city + zipInfo.suburb;
+  const info = zipInfo.results[0];
+
+  formUser.prefecture = info.address1;
+  formUser.address = info.address1 + info.address2 + info.address3;
 };
 
 const send = (): void => {
