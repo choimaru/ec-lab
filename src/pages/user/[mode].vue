@@ -30,7 +30,7 @@ const formUser = reactive({
   retirementDate: '',
 });
 
-const departmentName = ref('営業部営業1課');
+const departmentName = ref('');
 
 const tabList = [
   { id: 'tab1', name: '基本情報' },
@@ -91,6 +91,30 @@ const searchZip = async () => {
 
   formUser.prefecture = info.address1;
   formUser.address = info.address2 + info.address3;
+};
+
+const onClear = () => {
+  formUser.userCd = '';
+  formUser.userName = '';
+  formUser.kana = '';
+  formUser.email = '';
+  formUser.password = '';
+  formUser.departmentCd = '';
+  formUser.authority = '0';
+  formUser.employmentStatus = '0';
+  formUser.incumbencyStatus = '0';
+  formUser.loginAt = '';
+  formUser.failureCount = 0;
+  formUser.lockedAt = '';
+  formUser.gender = '0';
+  formUser.birthday = '';
+  formUser.zip = '';
+  formUser.prefecture = '';
+  formUser.address = '';
+  formUser.building = '';
+  formUser.entryDate = '';
+  formUser.retirementDate = '';
+  departmentName.value = '';
 };
 
 const send = (): void => {
@@ -280,7 +304,7 @@ const send = (): void => {
     </div>
     <div class="buttons">
       <ButtonCreate />
-      <ButtonClear />
+      <ButtonClear @on-clear="onClear" />
       <ButtonBack @on-back="router.push('/user/list')" />
     </div>
   </form>
