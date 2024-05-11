@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+  font-family:
+    Meiryo,
+    system-ui,
+    -apple-system,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
+}
+
+select {
+  border: 1px solid #ced4da;
+  appearance: auto;
+  padding: 4px 8px;
+  &:focus {
+    border: 1px solid #79bb32;
+    outline: none;
+  }
+}
+
+a {
+  color: #2929ff;
+  text-decoration: underline;
+}
+
+.g_disabled {
+  color: #999;
+  background-color: #f4f4f4;
+}
