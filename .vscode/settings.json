@@ -1,0 +1,7 @@
+{
+  "editor.fontFamily": "HackGen, Consolas, 'Courier New', monospace",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "explicit"
+  }
+}
