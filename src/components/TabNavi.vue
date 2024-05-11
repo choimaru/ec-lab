@@ -25,7 +25,10 @@ const pickedId = defineModel('pickedId');
 }
 
 .tab {
-  padding: 8px 16px;
+  display: inline-block;
+  padding: 0 16px;
+  margin-bottom: -1px;
+  line-height: 40px;
   background-color: #f5f7fa;
   border: 1px solid #dee2e6;
 }
@@ -33,10 +36,9 @@ const pickedId = defineModel('pickedId');
 input[type='radio']:checked + label,
 .tab:hover {
   background-color: #fff;
-  border-bottom: none;
 }
 
 input[type='radio']:checked + label {
-  padding-bottom: 9px;
+  border-bottom: 1px solid #fff;
 }
 </style>

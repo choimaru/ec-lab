@@ -320,7 +320,6 @@ const send = (): void => {
   flex-direction: column;
   gap: 8px;
   padding: 16px;
-  margin-top: 10px;
   background-color: #fff;
   border: 1px solid #e6e9ed;
 }
