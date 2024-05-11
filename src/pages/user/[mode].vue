@@ -195,15 +195,31 @@ const send = (): void => {
       </div>
       <div class="item">
         <LabelItem>ログイン日時</LabelItem>
-        <InputText type="datetime-local" size="l" v-model="formUser.loginAt" :disabled="permitLv < 2" />
+        <InputText
+          type="datetime-local"
+          size="l"
+          v-model="formUser.loginAt"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
       </div>
       <div class="item">
         <LabelItem>ログイン失敗回数</LabelItem>
-        <InputText type="number" size="xs" :min="0" v-model="formUser.failureCount" :disabled="permitLv < 2" />
+        <InputText
+          type="number"
+          size="xs"
+          :min="0"
+          v-model="formUser.failureCount"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
       </div>
       <div class="item">
         <LabelItem>ロック日時</LabelItem>
-        <InputText type="datetime-local" size="l" v-model="formUser.lockedAt" :disabled="permitLv < 2" />
+        <InputText
+          type="datetime-local"
+          size="l"
+          v-model="formUser.lockedAt"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
       </div>
     </div>
     <div class="content" v-show="pickedTabId === 'tab2'">
