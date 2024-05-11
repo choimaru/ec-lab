@@ -45,7 +45,6 @@ const router = useRouter();
 <style lang="scss" scoped>
 .link_create {
   display: flex;
-  justify-content: right;
 }
 
 .link_item {
