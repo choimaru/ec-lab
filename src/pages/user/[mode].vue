@@ -199,7 +199,7 @@ const send = (): void => {
       </div>
       <div class="item">
         <LabelItem>ログイン失敗回数</LabelItem>
-        <InputText type="number" size="xs" v-model="formUser.failureCount" :disabled="permitLv < 2" />
+        <InputText type="number" size="xs" :min="0" v-model="formUser.failureCount" :disabled="permitLv < 2" />
       </div>
       <div class="item">
         <LabelItem>ロック日時</LabelItem>
