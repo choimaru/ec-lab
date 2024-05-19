@@ -11,8 +11,10 @@ const naviList = [
   <div class="container">
     <div class="sidebar">
       <div class="logo">
-        <img src="~/assets/icons/round_flask_white.svg" width="24px" height="24px" alt="logo" />
-        EC-Lab
+        <NuxtLink to="/" class="not_a_style">
+          <img src="~/assets/icons/round_flask_white.svg" width="24px" height="24px" alt="logo" />
+          EC-Lab
+        </NuxtLink>
       </div>
       <nav class="nav">
         <ul class="ul">
@@ -51,6 +53,11 @@ const naviList = [
 
 .logo {
   padding-left: 16px;
+}
+
+.not_a_style {
+  color: #fff;
+  text-decoration: none;
 }
 
 .nav {
