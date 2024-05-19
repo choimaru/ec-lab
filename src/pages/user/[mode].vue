@@ -73,7 +73,10 @@ const permitLv = computed((): number => {
     return 2;
   }
 
-  if (loginInfo.value.userId === 'U0001') {
+  console.log(mode);
+  console.log(loginInfo.value.userId);
+
+  if (loginInfo.value.userId === mode) {
     return 1;
   }
 
