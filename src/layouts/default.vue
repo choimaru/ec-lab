@@ -85,6 +85,7 @@ const naviList = [
 }
 
 .main {
+  min-width: 700px;
   min-height: calc(100vh - 40px);
   padding: 16px;
   background-color: #f7f7f7;
