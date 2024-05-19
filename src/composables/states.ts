@@ -7,7 +7,7 @@ type LoginInfo = {
 export const useLoginInfo = () =>
   useState<LoginInfo>('loginInfo', () => {
     return {
-      userId: 'U0001',
+      userId: 'U999',
       userName: 'yamada',
       authority: 0,
     };

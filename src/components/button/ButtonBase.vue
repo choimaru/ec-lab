@@ -28,8 +28,8 @@ const emit = defineEmits<Emit>();
 
 <style lang="scss" scoped>
 .base {
-  height: 36px;
-  padding: 0 16px;
+  height: 34px;
+  padding: 0 12px;
   font-size: 12px;
   color: #fff;
   text-align: center;

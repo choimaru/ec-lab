@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const router = useRouter();
+const userList = [
+  { id: 'U001', name: '一般ユーザ', authority: 0 },
+  { id: 'U004', name: '人事ユーザ', authority: 3 },
+  { id: 'U999', name: '管理者', authority: 99 },
+];
 </script>
 
 <template>
@@ -26,9 +30,11 @@ const router = useRouter();
         <th>在職区分</th>
         <th>ロック日時</th>
       </tr>
-      <tr>
-        <td>12345</td>
-        <td>田中太郎</td>
+      <tr v-for="user in userList" :key="user.id">
+        <td>
+          <NuxtLink :to="`/user/${user.id}`">{{ user.id }}</NuxtLink>
+        </td>
+        <td>{{ user.name }}</td>
         <td>たなかたろう</td>
         <td>taro@example.com</td>
         <td>ABC Corporation</td>

@@ -46,7 +46,7 @@ input[type='password'] {
 }
 
 .xs {
-  width: 40px;
+  width: 48px;
 }
 
 .s {
