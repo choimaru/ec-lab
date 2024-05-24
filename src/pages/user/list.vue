@@ -56,12 +56,18 @@ const userList = [
 .link_item {
   display: flex;
   gap: 2px;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .list {
+  tr {
+    &:hover {
+      background-color: #fadede;
+    }
+  }
+
   th {
-    font-weight: normal;
+    font-weight: bold;
     background-color: #eee;
   }
 
