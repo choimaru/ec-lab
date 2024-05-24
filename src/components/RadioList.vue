@@ -68,6 +68,7 @@ input[type='radio']:checked + label::after {
 }
 
 .g_disabled {
+  cursor: default;
   background-color: #fff;
 }
 
