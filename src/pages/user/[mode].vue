@@ -5,7 +5,7 @@ const { mode } = route.params;
 
 const { search } = useZip();
 
-const title = mode === 'create' ? 'ユーザ登録' : 'ユーザ詳細';
+const title = mode === 'create' ? 'ユーザー登録' : 'ユーザー詳細';
 
 const formUser = reactive({
   userCd: '',
@@ -59,7 +59,7 @@ const genderList = [
 /**
  * 更新可能者
  *   2: 登録モード時、権限が「3：人事」、「99：管理者」
- *   1: ログインユーザ = 詳細のユーザコード
+ *   1: ログインユーザー = 詳細のユーザーコード
  *   0: その他
  */
 const permitLv = computed((): number => {
@@ -72,9 +72,6 @@ const permitLv = computed((): number => {
   if (loginInfo.value.authority === 3 || loginInfo.value.authority === 99) {
     return 2;
   }
-
-  console.log(mode);
-  console.log(loginInfo.value.userId);
 
   if (loginInfo.value.userId === mode) {
     return 1;
@@ -124,24 +121,25 @@ const onClear = () => {
   departmentName.value = '';
 };
 
-const send = (): void => {
+const onCreate = (): void => {
   const form = document.querySelector('.form') as HTMLFormElement;
+  console.log(form);
 
-  form.addEventListener('submit', (e: Event) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    console.log(...formData.entries());
-  });
+  // form.addEventListener('submit', (e: Event) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(form);
+  //   console.log(...formData.entries());
+  // });
 };
 </script>
 
 <template>
   <H1Title>{{ title }}</H1Title>
-  <form class="box_create" @submit="send">
+  <form class="box_create">
     <TabNavi :list="tabList" v-model:pickedId="pickedTabId" />
     <div class="content" v-show="pickedTabId === 'tab1'">
       <div class="item">
-        <LabelItem required>ユーザコード</LabelItem>
+        <LabelItem required>ユーザーコード</LabelItem>
         <InputText size="m" v-model="formUser.userCd" :disabled="permitLv < 2" />
       </div>
       <div class="item">
@@ -333,7 +331,7 @@ const send = (): void => {
       </div>
     </template>
     <div class="buttons">
-      <ButtonCreate />
+      <ButtonCreate @on-create="onCreate" />
       <ButtonClear @on-clear="onClear" />
       <ButtonBack @on-back="router.push('/user/list')" />
     </div>
