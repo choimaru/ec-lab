@@ -1,25 +1,25 @@
 <script setup lang="ts">
 const userList = [
-  { id: 'U001', name: '一般ユーザ', authority: 0 },
-  { id: 'U004', name: '人事ユーザ', authority: 3 },
+  { id: 'U001', name: '一般ユーザー', authority: 0 },
+  { id: 'U004', name: '人事ユーザー', authority: 3 },
   { id: 'U999', name: '管理者', authority: 99 },
 ];
 </script>
 
 <template>
   <div>
-    <H1Title>ユーザ一覧</H1Title>
+    <H1Title>ユーザー一覧</H1Title>
     <div class="link_create">
       <NuxtLink to="/user/create">
         <span class="link_item">
           <IconNewCreate color="#2929ff" />
-          ユーザの追加
+          ユーザーの追加
         </span>
       </NuxtLink>
     </div>
     <table class="list">
       <tr>
-        <th>ユーザコード</th>
+        <th>ユーザーコード</th>
         <th>氏名</th>
         <th>ふりがな</th>
         <th>メールアドレス</th>
@@ -56,12 +56,18 @@ const userList = [
 .link_item {
   display: flex;
   gap: 2px;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .list {
+  tr {
+    &:hover {
+      background-color: #fadede;
+    }
+  }
+
   th {
-    font-weight: normal;
+    font-weight: bold;
     background-color: #eee;
   }
 
