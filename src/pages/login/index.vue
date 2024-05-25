@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const userList = [
-  { id: 'U001', name: 'U001：一般ユーザ', authority: 0 },
-  { id: 'U004', name: 'U004：人事ユーザ', authority: 3 },
+  { id: 'U001', name: 'U001：一般ユーザー', authority: 0 },
+  { id: 'U004', name: 'U004：人事ユーザー', authority: 3 },
   { id: 'U999', name: 'U999：管理者', authority: 99 },
 ];
 

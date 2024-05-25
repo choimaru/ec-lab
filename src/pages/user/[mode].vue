@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { messages, type Message } from './messages';
+
 const router = useRouter();
 const route = useRoute();
 const { mode } = route.params;
 
 const { search } = useZip();
 
-const title = mode === 'create' ? 'ユーザ登録' : 'ユーザ詳細';
+const title = mode === 'create' ? 'ユーザー登録' : 'ユーザー詳細';
 
 const formUser = reactive({
   userCd: '',
@@ -56,10 +58,12 @@ const genderList = [
   { id: '1', name: '女性' },
 ];
 
+const showMessages = ref<string[]>([]);
+
 /**
  * 更新可能者
  *   2: 登録モード時、権限が「3：人事」、「99：管理者」
- *   1: ログインユーザ = 詳細のユーザコード
+ *   1: ログインユーザー = 詳細のユーザーコード
  *   0: その他
  */
 const permitLv = computed((): number => {
@@ -72,9 +76,6 @@ const permitLv = computed((): number => {
   if (loginInfo.value.authority === 3 || loginInfo.value.authority === 99) {
     return 2;
   }
-
-  console.log(mode);
-  console.log(loginInfo.value.userId);
 
   if (loginInfo.value.userId === mode) {
     return 1;
@@ -124,24 +125,24 @@ const onClear = () => {
   departmentName.value = '';
 };
 
-const send = (): void => {
-  const form = document.querySelector('.form') as HTMLFormElement;
-
-  form.addEventListener('submit', (e: Event) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    console.log(...formData.entries());
-  });
+const onCreate = (): void => {
+  showMessages.value = [];
+  // check
+  if (!formUser.userCd) showMessages.value.push(messages.required.userCd);
+  if (!formUser.userName) showMessages.value.push(messages.required.userName);
+  if (!formUser.kana) showMessages.value.push(messages.required.kana);
+  if (!formUser.email) showMessages.value.push(messages.required.email);
+  if (!formUser.password) showMessages.value.push(messages.required.password);
 };
 </script>
 
 <template>
   <H1Title>{{ title }}</H1Title>
-  <form class="box_create" @submit="send">
+  <form class="box_create" autocomplete="none">
     <TabNavi :list="tabList" v-model:pickedId="pickedTabId" />
     <div class="content" v-show="pickedTabId === 'tab1'">
       <div class="item">
-        <LabelItem required>ユーザコード</LabelItem>
+        <LabelItem required>ユーザーコード</LabelItem>
         <InputText size="m" v-model="formUser.userCd" :disabled="permitLv < 2" />
       </div>
       <div class="item">
@@ -332,8 +333,15 @@ const send = (): void => {
         </div>
       </div>
     </template>
+    <Transition>
+      <div class="error_message" v-if="showMessages.length !== 0">
+        <ul>
+          <li v-for="(message, index) in showMessages" :key="index">{{ message }}</li>
+        </ul>
+      </div>
+    </Transition>
     <div class="buttons">
-      <ButtonCreate />
+      <ButtonCreate @on-create="onCreate" />
       <ButtonClear @on-clear="onClear" />
       <ButtonBack @on-back="router.push('/user/list')" />
     </div>
@@ -371,6 +379,34 @@ const send = (): void => {
 .name_space {
   margin-top: 3px;
   margin-left: 8px;
+}
+
+.error_message {
+  padding: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #fa2e2e;
+  background-color: #ffd9d9;
+  border: 2px solid #fb6565;
+  border-right-width: 6px;
+  border-left-width: 6px;
+  border-radius: 4px;
+
+  li {
+    padding: 3px 0;
+    margin-left: 16px;
+    list-style-type: disc;
+  }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .buttons {
