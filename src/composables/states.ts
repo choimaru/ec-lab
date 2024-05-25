@@ -9,6 +9,6 @@ export const useLoginInfo = () =>
     return {
       userId: 'U999',
       userName: 'yamada',
-      authority: 0,
+      authority: 99,
     };
   });
