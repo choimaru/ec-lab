@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { messages, type Message } from './messages';
+
 const router = useRouter();
 const route = useRoute();
 const { mode } = route.params;
@@ -55,6 +57,8 @@ const genderList = [
   { id: '0', name: '男性' },
   { id: '1', name: '女性' },
 ];
+
+const showMessages = ref<string[]>([]);
 
 /**
  * 更新可能者
@@ -122,20 +126,19 @@ const onClear = () => {
 };
 
 const onCreate = (): void => {
-  const form = document.querySelector('.form') as HTMLFormElement;
-  console.log(form);
-
-  // form.addEventListener('submit', (e: Event) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(form);
-  //   console.log(...formData.entries());
-  // });
+  showMessages.value = [];
+  // check
+  if (!formUser.userCd) showMessages.value.push(messages.required.userCd);
+  if (!formUser.userName) showMessages.value.push(messages.required.userName);
+  if (!formUser.kana) showMessages.value.push(messages.required.kana);
+  if (!formUser.email) showMessages.value.push(messages.required.email);
+  if (!formUser.password) showMessages.value.push(messages.required.password);
 };
 </script>
 
 <template>
   <H1Title>{{ title }}</H1Title>
-  <form class="box_create">
+  <form class="box_create" autocomplete="none">
     <TabNavi :list="tabList" v-model:pickedId="pickedTabId" />
     <div class="content" v-show="pickedTabId === 'tab1'">
       <div class="item">
@@ -330,6 +333,13 @@ const onCreate = (): void => {
         </div>
       </div>
     </template>
+    <Transition>
+      <div class="error_message" v-if="showMessages.length !== 0">
+        <ul>
+          <li v-for="(message, index) in showMessages" :key="index">{{ message }}</li>
+        </ul>
+      </div>
+    </Transition>
     <div class="buttons">
       <ButtonCreate @on-create="onCreate" />
       <ButtonClear @on-clear="onClear" />
@@ -369,6 +379,34 @@ const onCreate = (): void => {
 .name_space {
   margin-top: 3px;
   margin-left: 8px;
+}
+
+.error_message {
+  padding: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #fa2e2e;
+  background-color: #ffd9d9;
+  border: 2px solid #fb6565;
+  border-right-width: 6px;
+  border-left-width: 6px;
+  border-radius: 4px;
+
+  li {
+    padding: 3px 0;
+    margin-left: 16px;
+    list-style-type: disc;
+  }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .buttons {
