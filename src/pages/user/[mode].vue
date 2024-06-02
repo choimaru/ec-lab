@@ -30,6 +30,10 @@ const formUser = reactive({
   building: '',
   entryDate: '',
   retirementDate: '',
+  created_user: '',
+  created_at: '',
+  updated_user: '',
+  updated_at: '',
 });
 
 const departmentName = ref('');
@@ -37,6 +41,7 @@ const departmentName = ref('');
 const tabList = ref([
   { id: 'tab1', name: '基本情報' },
   { id: 'tab2', name: '個人情報' },
+  { id: 'tab3', name: 'その他' },
 ]);
 const pickedTabId = ref('tab1');
 
@@ -81,7 +86,7 @@ const permitLv = computed((): number => {
     return 1;
   }
 
-  tabList.value.splice(1);
+  tabList.value.splice(1, 1);
 
   return 0;
 });
@@ -201,34 +206,6 @@ const onCreate = (): void => {
           :disabled="permitLv < 2"
         />
       </div>
-      <div class="item">
-        <LabelItem>ログイン日時</LabelItem>
-        <InputText
-          type="datetime-local"
-          size="l"
-          v-model="formUser.loginAt"
-          :disabled="mode === 'create' || permitLv < 2"
-        />
-      </div>
-      <div class="item">
-        <LabelItem>ログイン失敗回数</LabelItem>
-        <InputText
-          type="number"
-          size="xs"
-          :min="0"
-          v-model="formUser.failureCount"
-          :disabled="mode === 'create' || permitLv < 2"
-        />
-      </div>
-      <div class="item">
-        <LabelItem>ロック日時</LabelItem>
-        <InputText
-          type="datetime-local"
-          size="l"
-          v-model="formUser.lockedAt"
-          :disabled="mode === 'create' || permitLv < 2"
-        />
-      </div>
     </div>
     <template v-if="permitLv >= 1">
       <div class="content" v-show="pickedTabId === 'tab2'">
@@ -333,6 +310,52 @@ const onCreate = (): void => {
         </div>
       </div>
     </template>
+    <div class="content" v-show="pickedTabId === 'tab3'">
+      <div class="item">
+        <LabelItem>ログイン日時</LabelItem>
+        <InputText
+          type="datetime-local"
+          size="l"
+          v-model="formUser.loginAt"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
+      </div>
+      <div class="item">
+        <LabelItem>ログイン失敗回数</LabelItem>
+        <InputText
+          type="number"
+          size="xs"
+          :min="0"
+          v-model="formUser.failureCount"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
+      </div>
+      <div class="item">
+        <LabelItem>ロック日時</LabelItem>
+        <InputText
+          type="datetime-local"
+          size="l"
+          v-model="formUser.lockedAt"
+          :disabled="mode === 'create' || permitLv < 2"
+        />
+      </div>
+      <div class="item">
+        <LabelItem>作成者</LabelItem>
+        <InputText size="m" v-model="formUser.created_user" :disabled="true" />
+      </div>
+      <div class="item">
+        <LabelItem>作成日</LabelItem>
+        <InputText type="datetime-local" size="l" v-model="formUser.created_at" :disabled="true" />
+      </div>
+      <div class="item">
+        <LabelItem>更新者</LabelItem>
+        <InputText size="m" v-model="formUser.updated_user" :disabled="true" />
+      </div>
+      <div class="item">
+        <LabelItem>更新日</LabelItem>
+        <InputText type="datetime-local" size="l" v-model="formUser.updated_at" :disabled="true" />
+      </div>
+    </div>
     <Transition>
       <div class="error_message" v-if="showMessages.length !== 0">
         <ul>
