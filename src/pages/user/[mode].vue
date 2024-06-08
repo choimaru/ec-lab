@@ -7,11 +7,11 @@ const { mode } = route.params;
 
 const { search } = useZip();
 
-const title = mode === 'create' ? 'ユーザー登録' : 'ユーザー詳細';
+const title = mode === 'create' ? '社員登録' : '社員詳細';
 
-const formUser = reactive({
-  userCd: '',
-  userName: '',
+const formEmployee = reactive({
+  employeeCd: '',
+  employeeName: '',
   kana: '',
   email: '',
   password: '',
@@ -30,9 +30,9 @@ const formUser = reactive({
   building: '',
   entryDate: '',
   retirementDate: '',
-  created_user: '',
+  created_employee: '',
   created_at: '',
-  updated_user: '',
+  updated_employee: '',
   updated_at: '',
 });
 
@@ -68,7 +68,7 @@ const showMessages = ref<string[]>([]);
 /**
  * 更新可能者
  *   2: 登録モード時、権限が「3：人事」、「99：管理者」
- *   1: ログインユーザー = 詳細のユーザーコード
+ *   1: ログイン社員 = 詳細の社員コード
  *   0: その他
  */
 const permitLv = computed((): number => {
@@ -82,7 +82,7 @@ const permitLv = computed((): number => {
     return 2;
   }
 
-  if (loginInfo.value.userId === mode) {
+  if (loginInfo.value.employeeId === mode) {
     return 1;
   }
 
@@ -92,52 +92,52 @@ const permitLv = computed((): number => {
 });
 
 const searchZip = async () => {
-  const zipInfo = await search(formUser.zip);
+  const zipInfo = await search(formEmployee.zip);
 
   if (!zipInfo) {
-    formUser.prefecture = '';
-    formUser.address = '';
+    formEmployee.prefecture = '';
+    formEmployee.address = '';
     return;
   }
 
   const info = zipInfo.results[0];
 
-  formUser.prefecture = info.address1;
-  formUser.address = info.address2 + info.address3;
+  formEmployee.prefecture = info.address1;
+  formEmployee.address = info.address2 + info.address3;
 };
 
 const onClear = () => {
-  formUser.userCd = '';
-  formUser.userName = '';
-  formUser.kana = '';
-  formUser.email = '';
-  formUser.password = '';
-  formUser.departmentCd = '';
-  formUser.authority = '0';
-  formUser.employmentStatus = '0';
-  formUser.incumbencyStatus = '0';
-  formUser.loginAt = '';
-  formUser.failureCount = 0;
-  formUser.lockedAt = '';
-  formUser.gender = '0';
-  formUser.birthday = '';
-  formUser.zip = '';
-  formUser.prefecture = '';
-  formUser.address = '';
-  formUser.building = '';
-  formUser.entryDate = '';
-  formUser.retirementDate = '';
+  formEmployee.employeeCd = '';
+  formEmployee.employeeName = '';
+  formEmployee.kana = '';
+  formEmployee.email = '';
+  formEmployee.password = '';
+  formEmployee.departmentCd = '';
+  formEmployee.authority = '0';
+  formEmployee.employmentStatus = '0';
+  formEmployee.incumbencyStatus = '0';
+  formEmployee.loginAt = '';
+  formEmployee.failureCount = 0;
+  formEmployee.lockedAt = '';
+  formEmployee.gender = '0';
+  formEmployee.birthday = '';
+  formEmployee.zip = '';
+  formEmployee.prefecture = '';
+  formEmployee.address = '';
+  formEmployee.building = '';
+  formEmployee.entryDate = '';
+  formEmployee.retirementDate = '';
   departmentName.value = '';
 };
 
 const onCreate = (): void => {
   showMessages.value = [];
   // check
-  if (!formUser.userCd) showMessages.value.push(messages.required.userCd);
-  if (!formUser.userName) showMessages.value.push(messages.required.userName);
-  if (!formUser.kana) showMessages.value.push(messages.required.kana);
-  if (!formUser.email) showMessages.value.push(messages.required.email);
-  if (!formUser.password) showMessages.value.push(messages.required.password);
+  if (!formEmployee.employeeCd) showMessages.value.push(messages.required.employeeCd);
+  if (!formEmployee.employeeName) showMessages.value.push(messages.required.employeeName);
+  if (!formEmployee.kana) showMessages.value.push(messages.required.kana);
+  if (!formEmployee.email) showMessages.value.push(messages.required.email);
+  if (!formEmployee.password) showMessages.value.push(messages.required.password);
 };
 </script>
 
@@ -147,28 +147,28 @@ const onCreate = (): void => {
     <TabNavi :list="tabList" v-model:pickedId="pickedTabId" />
     <div class="content" v-show="pickedTabId === 'tab1'">
       <div class="item">
-        <LabelItem required>ユーザーコード</LabelItem>
-        <InputText size="m" v-model="formUser.userCd" :disabled="permitLv < 2" />
+        <LabelItem required>社員コード</LabelItem>
+        <InputText size="m" v-model="formEmployee.employeeCd" :disabled="permitLv < 2" />
       </div>
       <div class="item">
         <LabelItem required>氏名</LabelItem>
-        <InputText size="l" v-model="formUser.userName" :disabled="permitLv < 1" />
+        <InputText size="l" v-model="formEmployee.employeeName" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem required>ふりがな</LabelItem>
-        <InputText size="l" v-model="formUser.kana" :disabled="permitLv < 1" />
+        <InputText size="l" v-model="formEmployee.kana" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem required>メールアドレス</LabelItem>
-        <InputText size="xl" v-model="formUser.email" :disabled="permitLv < 1" />
+        <InputText size="xl" v-model="formEmployee.email" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem required>パスワード</LabelItem>
-        <InputText type="password" size="xl" v-model="formUser.password" :disabled="permitLv < 1" />
+        <InputText type="password" size="xl" v-model="formEmployee.password" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem>組織コード</LabelItem>
-        <InputText size="m" v-model="formUser.departmentCd" :disabled="permitLv < 2" />
+        <InputText size="m" v-model="formEmployee.departmentCd" :disabled="permitLv < 2" />
         <IconSearch />
         <span class="name_space">
           {{ departmentName }}
@@ -179,13 +179,13 @@ const onCreate = (): void => {
         <RadioList
           :list="authorityList"
           id-prefix="auth_"
-          v-model:pickedId="formUser.authority"
+          v-model:pickedId="formEmployee.authority"
           :disabled="permitLv < 2"
         />
       </div>
       <div class="item">
         <LabelItem>雇用形態</LabelItem>
-        <select v-model="formUser.employmentStatus" :class="{ g_disabled: permitLv < 2 }" :disabled="permitLv < 2">
+        <select v-model="formEmployee.employmentStatus" :class="{ g_disabled: permitLv < 2 }" :disabled="permitLv < 2">
           <option value="0">正社員</option>
           <option value="1">契約社員</option>
           <option value="2">嘱託社員</option>
@@ -202,7 +202,7 @@ const onCreate = (): void => {
         <RadioList
           :list="incumbencyList"
           id-prefix="incumbency_"
-          v-model:pickedId="formUser.incumbencyStatus"
+          v-model:pickedId="formEmployee.incumbencyStatus"
           :disabled="permitLv < 2"
         />
       </div>
@@ -214,21 +214,21 @@ const onCreate = (): void => {
           <RadioList
             :list="genderList"
             id-prefix="gender_"
-            v-model:pickedId="formUser.gender"
+            v-model:pickedId="formEmployee.gender"
             :disabled="permitLv < 1"
           />
         </div>
         <div class="item">
           <LabelItem>生年月日</LabelItem>
-          <InputText type="date" size="m" v-model="formUser.birthday" :disabled="permitLv < 1" />
+          <InputText type="date" size="m" v-model="formEmployee.birthday" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>郵便番号</LabelItem>
-          <InputText size="s" @on-blur="searchZip" v-model="formUser.zip" :disabled="permitLv < 1" />
+          <InputText size="s" @on-blur="searchZip" v-model="formEmployee.zip" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>都道府県</LabelItem>
-          <select v-model="formUser.prefecture" :class="{ g_disabled: permitLv < 1 }" :disabled="permitLv < 1">
+          <select v-model="formEmployee.prefecture" :class="{ g_disabled: permitLv < 1 }" :disabled="permitLv < 1">
             <optgroup label="北海道・東北">
               <option value="北海道">北海道</option>
               <option value="青森県">青森県</option>
@@ -294,19 +294,19 @@ const onCreate = (): void => {
         </div>
         <div class="item">
           <LabelItem>住所</LabelItem>
-          <InputText size="xl" v-model="formUser.address" :disabled="permitLv < 1" />
+          <InputText size="xl" v-model="formEmployee.address" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>建物</LabelItem>
-          <InputText size="xl" v-model="formUser.building" :disabled="permitLv < 1" />
+          <InputText size="xl" v-model="formEmployee.building" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>入社日</LabelItem>
-          <InputText type="date" size="m" v-model="formUser.entryDate" :disabled="permitLv < 2" />
+          <InputText type="date" size="m" v-model="formEmployee.entryDate" :disabled="permitLv < 2" />
         </div>
         <div class="item">
           <LabelItem>退職日</LabelItem>
-          <InputText type="date" size="m" v-model="formUser.retirementDate" :disabled="permitLv < 2" />
+          <InputText type="date" size="m" v-model="formEmployee.retirementDate" :disabled="permitLv < 2" />
         </div>
       </div>
     </template>
@@ -316,7 +316,7 @@ const onCreate = (): void => {
         <InputText
           type="datetime-local"
           size="l"
-          v-model="formUser.loginAt"
+          v-model="formEmployee.loginAt"
           :disabled="mode === 'create' || permitLv < 2"
         />
       </div>
@@ -326,7 +326,7 @@ const onCreate = (): void => {
           type="number"
           size="xs"
           :min="0"
-          v-model="formUser.failureCount"
+          v-model="formEmployee.failureCount"
           :disabled="mode === 'create' || permitLv < 2"
         />
       </div>
@@ -335,25 +335,25 @@ const onCreate = (): void => {
         <InputText
           type="datetime-local"
           size="l"
-          v-model="formUser.lockedAt"
+          v-model="formEmployee.lockedAt"
           :disabled="mode === 'create' || permitLv < 2"
         />
       </div>
       <div class="item">
         <LabelItem>作成者</LabelItem>
-        <InputText size="m" v-model="formUser.created_user" :disabled="true" />
+        <InputText size="m" v-model="formEmployee.created_employee" :disabled="true" />
       </div>
       <div class="item">
         <LabelItem>作成日</LabelItem>
-        <InputText type="datetime-local" size="l" v-model="formUser.created_at" :disabled="true" />
+        <InputText type="datetime-local" size="l" v-model="formEmployee.created_at" :disabled="true" />
       </div>
       <div class="item">
         <LabelItem>更新者</LabelItem>
-        <InputText size="m" v-model="formUser.updated_user" :disabled="true" />
+        <InputText size="m" v-model="formEmployee.updated_employee" :disabled="true" />
       </div>
       <div class="item">
         <LabelItem>更新日</LabelItem>
-        <InputText type="datetime-local" size="l" v-model="formUser.updated_at" :disabled="true" />
+        <InputText type="datetime-local" size="l" v-model="formEmployee.updated_at" :disabled="true" />
       </div>
     </div>
     <Transition>
@@ -366,7 +366,7 @@ const onCreate = (): void => {
     <div class="buttons">
       <ButtonCreate @on-create="onCreate" />
       <ButtonClear @on-clear="onClear" />
-      <ButtonBack @on-back="router.push('/user/list')" />
+      <ButtonBack @on-back="router.push('/employee/list')" />
     </div>
   </form>
 </template>

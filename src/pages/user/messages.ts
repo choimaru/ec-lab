@@ -1,7 +1,7 @@
 export type Message = {
   required: {
-    userCd: string;
-    userName: string;
+    employeeCd: string;
+    employeeName: string;
     kana: string;
     email: string;
     password: string;
@@ -10,8 +10,8 @@ export type Message = {
 
 export const messages: Message = {
   required: {
-    userCd: 'ユーザーコードを入力してください。',
-    userName: '氏名を入力してください。',
+    employeeCd: '社員コードを入力してください。',
+    employeeName: '氏名を入力してください。',
     kana: 'ふりがなを入力してください。',
     email: 'メールアドレスを入力してください。',
     password: 'パスワードを入力してください。',

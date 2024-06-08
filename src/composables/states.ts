@@ -1,14 +1,14 @@
 type LoginInfo = {
-  userId: string;
-  userName: string;
+  employeeId: string;
+  employeeName: string;
   authority: number;
 };
 
 export const useLoginInfo = () =>
   useState<LoginInfo>('loginInfo', () => {
     return {
-      userId: 'U999',
-      userName: 'yamada',
+      employeeId: 'U999',
+      employeeName: 'yamada',
       authority: 99,
     };
   });

@@ -1,25 +1,25 @@
 <script setup lang="ts">
-const userList = [
-  { id: 'U001', name: '一般ユーザー', authority: 0 },
-  { id: 'U004', name: '人事ユーザー', authority: 3 },
+const employeeList = [
+  { id: 'U001', name: '一般社員', authority: 0 },
+  { id: 'U004', name: '人事社員', authority: 3 },
   { id: 'U999', name: '管理者', authority: 99 },
 ];
 </script>
 
 <template>
   <div>
-    <H1Title>ユーザー一覧</H1Title>
+    <H1Title>社員一覧</H1Title>
     <div class="link_create">
-      <NuxtLink to="/user/create">
+      <NuxtLink to="/employee/create">
         <span class="link_item">
           <IconNewCreate color="#2929ff" />
-          ユーザーの追加
+          社員の追加
         </span>
       </NuxtLink>
     </div>
     <table class="list">
       <tr>
-        <th>ユーザーコード</th>
+        <th>社員コード</th>
         <th>氏名</th>
         <th>ふりがな</th>
         <th>メールアドレス</th>
@@ -30,11 +30,11 @@ const userList = [
         <th>在職区分</th>
         <th>ロック日時</th>
       </tr>
-      <tr v-for="user in userList" :key="user.id">
+      <tr v-for="employee in employeeList" :key="employee.id">
         <td>
-          <NuxtLink :to="`/user/${user.id}`">{{ user.id }}</NuxtLink>
+          <NuxtLink :to="`/employee/${employee.id}`">{{ employee.id }}</NuxtLink>
         </td>
-        <td>{{ user.name }}</td>
+        <td>{{ employee.name }}</td>
         <td>たなかたろう</td>
         <td>taro@example.com</td>
         <td>ABC Corporation</td>
