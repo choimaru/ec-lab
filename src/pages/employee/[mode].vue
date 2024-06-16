@@ -15,25 +15,33 @@ const formEmployee = reactive({
   kana: '',
   email: '',
   password: '',
+  tel: '',
   departmentCd: '',
+  post: '',
   authority: '0',
   employmentStatus: '0',
   incumbencyStatus: '0',
   loginAt: '',
   failureCount: 0,
   lockedAt: '',
-  gender: '0',
-  birthday: '',
-  zip: '',
-  prefecture: '',
-  address: '',
-  building: '',
-  entryDate: '',
-  retirementDate: '',
   created_employee: '',
   created_at: '',
   updated_employee: '',
   updated_at: '',
+});
+
+const formPersonal = reactive({
+  gender: '0',
+  birthday: '',
+  zipCode: '',
+  prefecture: '',
+  address: '',
+  building: '',
+  email: '',
+  tel: '',
+  emergencyTel: '',
+  entryDate: '',
+  retirementDate: '',
 });
 
 const departmentName = ref('');
@@ -92,41 +100,50 @@ const permitLv = computed((): number => {
 });
 
 const searchZip = async () => {
-  const zipInfo = await search(formEmployee.zip);
+  const zipInfo = await search(formPersonal.zipCode);
 
   if (!zipInfo) {
-    formEmployee.prefecture = '';
-    formEmployee.address = '';
+    formPersonal.prefecture = '';
+    formPersonal.address = '';
     return;
   }
 
   const info = zipInfo.results[0];
 
-  formEmployee.prefecture = info.address1;
-  formEmployee.address = info.address2 + info.address3;
+  formPersonal.prefecture = info.address1;
+  formPersonal.address = info.address2 + info.address3;
 };
 
 const onClear = () => {
+  // 基本情報
   formEmployee.employeeCd = '';
   formEmployee.employeeName = '';
   formEmployee.kana = '';
   formEmployee.email = '';
   formEmployee.password = '';
+  formEmployee.tel = '';
   formEmployee.departmentCd = '';
+  formEmployee.post = '';
   formEmployee.authority = '0';
   formEmployee.employmentStatus = '0';
   formEmployee.incumbencyStatus = '0';
   formEmployee.loginAt = '';
   formEmployee.failureCount = 0;
   formEmployee.lockedAt = '';
-  formEmployee.gender = '0';
-  formEmployee.birthday = '';
-  formEmployee.zip = '';
-  formEmployee.prefecture = '';
-  formEmployee.address = '';
-  formEmployee.building = '';
-  formEmployee.entryDate = '';
-  formEmployee.retirementDate = '';
+
+  // 個人情報
+  formPersonal.gender = '0';
+  formPersonal.birthday = '';
+  formPersonal.zipCode = '';
+  formPersonal.prefecture = '';
+  formPersonal.address = '';
+  formPersonal.building = '';
+  formPersonal.email = '';
+  formPersonal.tel = '';
+  formPersonal.emergencyTel = '';
+  formPersonal.entryDate = '';
+  formPersonal.retirementDate = '';
+
   departmentName.value = '';
 };
 
@@ -136,7 +153,6 @@ const onCreate = (): void => {
   if (!formEmployee.employeeCd) showMessages.value.push(messages.required.employeeCd);
   if (!formEmployee.employeeName) showMessages.value.push(messages.required.employeeName);
   if (!formEmployee.kana) showMessages.value.push(messages.required.kana);
-  if (!formEmployee.email) showMessages.value.push(messages.required.email);
   if (!formEmployee.password) showMessages.value.push(messages.required.password);
 };
 </script>
@@ -151,12 +167,12 @@ const onCreate = (): void => {
         <InputText size="m" v-model="formEmployee.employeeCd" :disabled="permitLv < 2" />
       </div>
       <div class="item">
-        <LabelItem required>氏名</LabelItem>
-        <InputText size="l" v-model="formEmployee.employeeName" :disabled="permitLv < 1" />
+        <LabelItem required>社員名</LabelItem>
+        <InputText size="xl" v-model="formEmployee.employeeName" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem required>ふりがな</LabelItem>
-        <InputText size="l" v-model="formEmployee.kana" :disabled="permitLv < 1" />
+        <InputText size="xl" v-model="formEmployee.kana" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem required>メールアドレス</LabelItem>
@@ -167,12 +183,20 @@ const onCreate = (): void => {
         <InputText type="password" size="xl" v-model="formEmployee.password" :disabled="permitLv < 1" />
       </div>
       <div class="item">
-        <LabelItem>組織コード</LabelItem>
+        <LabelItem>連絡先</LabelItem>
+        <InputText size="xl" v-model="formEmployee.tel" :disabled="permitLv < 1" />
+      </div>
+      <div class="item">
+        <LabelItem>所属部門コード</LabelItem>
         <InputText size="m" v-model="formEmployee.departmentCd" :disabled="permitLv < 2" />
         <IconSearch />
         <span class="name_space">
           {{ departmentName }}
         </span>
+      </div>
+      <div class="item">
+        <LabelItem>役職</LabelItem>
+        <InputText size="m" v-model="formEmployee.post" :disabled="permitLv < 1" />
       </div>
       <div class="item">
         <LabelItem>権限</LabelItem>
@@ -214,21 +238,21 @@ const onCreate = (): void => {
           <RadioList
             :list="genderList"
             id-prefix="gender_"
-            v-model:pickedId="formEmployee.gender"
+            v-model:pickedId="formPersonal.gender"
             :disabled="permitLv < 1"
           />
         </div>
         <div class="item">
           <LabelItem>生年月日</LabelItem>
-          <InputText type="date" size="m" v-model="formEmployee.birthday" :disabled="permitLv < 1" />
+          <InputText type="date" size="m" v-model="formPersonal.birthday" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>郵便番号</LabelItem>
-          <InputText size="s" @on-blur="searchZip" v-model="formEmployee.zip" :disabled="permitLv < 1" />
+          <InputText size="s" @on-blur="searchZip" v-model="formPersonal.zipCode" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>都道府県</LabelItem>
-          <select v-model="formEmployee.prefecture" :class="{ g_disabled: permitLv < 1 }" :disabled="permitLv < 1">
+          <select v-model="formPersonal.prefecture" :class="{ g_disabled: permitLv < 1 }" :disabled="permitLv < 1">
             <optgroup label="北海道・東北">
               <option value="北海道">北海道</option>
               <option value="青森県">青森県</option>
@@ -294,19 +318,27 @@ const onCreate = (): void => {
         </div>
         <div class="item">
           <LabelItem>住所</LabelItem>
-          <InputText size="xl" v-model="formEmployee.address" :disabled="permitLv < 1" />
+          <InputText size="xl" v-model="formPersonal.address" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>建物</LabelItem>
-          <InputText size="xl" v-model="formEmployee.building" :disabled="permitLv < 1" />
+          <InputText size="xl" v-model="formPersonal.building" :disabled="permitLv < 1" />
+        </div>
+        <div class="item">
+          <LabelItem>メールアドレス</LabelItem>
+          <InputText size="xl" v-model="formPersonal.email" :disabled="permitLv < 1" />
+        </div>
+        <div class="item">
+          <LabelItem>連絡先</LabelItem>
+          <InputText size="xl" v-model="formPersonal.tel" :disabled="permitLv < 1" />
         </div>
         <div class="item">
           <LabelItem>入社日</LabelItem>
-          <InputText type="date" size="m" v-model="formEmployee.entryDate" :disabled="permitLv < 2" />
+          <InputText type="date" size="m" v-model="formPersonal.entryDate" :disabled="permitLv < 2" />
         </div>
         <div class="item">
           <LabelItem>退職日</LabelItem>
-          <InputText type="date" size="m" v-model="formEmployee.retirementDate" :disabled="permitLv < 2" />
+          <InputText type="date" size="m" v-model="formPersonal.retirementDate" :disabled="permitLv < 2" />
         </div>
       </div>
     </template>
@@ -341,7 +373,7 @@ const onCreate = (): void => {
       </div>
       <div class="item">
         <LabelItem>作成者</LabelItem>
-        <InputText size="m" v-model="formEmployee.created_employee" :disabled="true" />
+        <InputText size="xl" v-model="formEmployee.created_employee" :disabled="true" />
       </div>
       <div class="item">
         <LabelItem>作成日</LabelItem>
@@ -349,7 +381,7 @@ const onCreate = (): void => {
       </div>
       <div class="item">
         <LabelItem>更新者</LabelItem>
-        <InputText size="m" v-model="formEmployee.updated_employee" :disabled="true" />
+        <InputText size="xl" v-model="formEmployee.updated_employee" :disabled="true" />
       </div>
       <div class="item">
         <LabelItem>更新日</LabelItem>

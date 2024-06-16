@@ -20,7 +20,7 @@ const employeeList = [
     <table class="list">
       <tr>
         <th>社員コード</th>
-        <th>氏名</th>
+        <th>社員名</th>
         <th>ふりがな</th>
         <th>メールアドレス</th>
         <th>所属組織</th>
